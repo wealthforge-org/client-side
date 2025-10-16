@@ -29,31 +29,31 @@ const RightSection = () => {
                                 Market conditions favorable for buying
                             </p>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mt-10">
-                            <div class="bg-gray-700/50 rounded-lg p-4">
-                                <div class="flex justify-between items-start">
+                        <div className="grid grid-cols-2 gap-4 mt-10">
+                            <div className="bg-gray-700/50 rounded-lg p-4">
+                                <div className="flex justify-between items-start">
                                     <div>
-                                        <p class="text-sm text-gray-400 text-left">BTC</p>
-                                        <p class="font-bold">$42,156.34</p>
-                                        <p class="text-green-400 text-xs flex items-center">
+                                        <p className="text-sm text-gray-400 text-left">BTC</p>
+                                        <p className="font-bold">$42,156.34</p>
+                                        <p className="text-green-400 text-xs flex items-center">
                                             <TrendingUp />
                                             5.2%
                                         </p>
                                     </div>
-                                    <i data-feather="bitcoin" class="w-6 h-6 text-orange-500"></i>
+                                    <i data-feather="bitcoin" className="w-6 h-6 text-orange-500"></i>
                                 </div>
                             </div>
-                            <div class="bg-gray-700/50 rounded-lg p-4">
-                                <div class="flex justify-between items-start">
+                            <div className="bg-gray-700/50 rounded-lg p-4">
+                                <div className="flex justify-between items-start">
                                     <div>
-                                        <p class="text-sm text-gray-400 text-left">ETH</p>
-                                        <p class="font-bold">$2,345.67</p>
-                                        <p class="text-green-400 text-xs flex items-center">
+                                        <p className="text-sm text-gray-400 text-left">ETH</p>
+                                        <p className="font-bold">$2,345.67</p>
+                                        <p className="text-green-400 text-xs flex items-center">
                                             <TrendingUp />
                                             3.8%
                                         </p>
                                     </div>
-                                    <i data-feather="database" class="w-6 h-6 text-blue-400"></i>
+                                    <i data-feather="database" className="w-6 h-6 text-blue-400"></i>
                                 </div>
                             </div>
                         </div>
