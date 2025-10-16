@@ -17,13 +17,14 @@ const LeftSection = () => {
             />
             <div className='flex flex-wrap gap-4'>
                 <PrimaryButton
+                    to="/login"
                     text={
                         <span className='flex flex-row gap-2'>
                             Get Started <ArrowRight />
                         </span>
                     }
                 />
-                <SecondaryButton text="Leave us a message"/>
+                <SecondaryButton text="Leave us a message" to="/contact-us"/>
             </div>
         </div>
   )

@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const PrimaryButton = ({text, className}) => {
+const PrimaryButton = ({text, className, to, icon}) => {
   return (
-    <button className={`px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg hover:opacity-90 transition ${className}`}>
+    <Link to={to} className={`px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg hover:opacity-90 transition ${className}`}>
         {text}
-    </button>
+    </Link>
   )
 }
 

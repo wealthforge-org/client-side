@@ -2,6 +2,11 @@ import Landing from "../Pages/Landing/Landing";
 
 import LandingWrapper from "../Wrappers/LandingWrapper";
 
+import Login from "../Pages/Auth/Login/Login";
+import SignUp from "../Pages/Auth/Sign-Up/SignUp";
+
+import NotFound from "../Pages/NotFound";
+
 
 export const routes = [
     { 
@@ -10,5 +15,17 @@ export const routes = [
             <LandingWrapper>
                 <Landing />
             </LandingWrapper>
+    },
+    {
+        path: "/login",
+        element: <Login/>
+    },
+    {
+        path: "/sign-up",
+        element: <SignUp/>
+    },
+    {
+        path: "/*",
+        element: <NotFound/>
     }
 ]
