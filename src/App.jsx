@@ -1,20 +1,15 @@
-import { useState } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './Styles/App.css'
-import Logo from './assets/Logo'
-import PrimaryButton from './Components/Ui/Buttons/PrimaryButton'
-import SecondaryButton from './Components/Ui/Buttons/SecondaryButton'
+import AppWrapper from './Wrappers/AppWrapper'
 
 function App() {
 
   return (
-    <div className='bg-primary text-gray-100 min-h-screen'>
-      
-      <div  className="fixed inset-0 -z-10"></div>
-      <Logo />
-      <PrimaryButton text="Login"/>
-      <SecondaryButton text="Sign up"/>
-      
-    </div>
+    <Router>
+      <div className='bg-primary text-gray-100 min-h-screen'>
+        <AppWrapper />
+      </div>
+    </Router>
   )
 }
 
