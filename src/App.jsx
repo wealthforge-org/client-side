@@ -8,8 +8,11 @@ function App() {
     <Router>
       <div className='bg-primary text-gray-100 min-h-screen'>
         <AppWrapper />
+         
       </div>
+      
     </Router>
+    
   )
 }
 

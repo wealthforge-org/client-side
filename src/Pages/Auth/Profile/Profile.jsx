@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
-export default function Signup() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+export default function Profile() {
+  const [form, setForm] = useState({
+    name: "John Doe",
+    email: "john@example.com",
+    password: "password123"
+  });
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,8 +28,10 @@ export default function Signup() {
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      alert("Account created successfully!");
-      setForm({ name: "", email: "", password: "" });
+      setSuccessMessage("Profile updated successfully!");
+      // Here you would normally send the updated data to the backend
+    } else {
+      setSuccessMessage("");
     }
   };
 
@@ -33,9 +39,9 @@ export default function Signup() {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] text-white">
       <div className="w-full max-w-lg bg-[rgba(17,25,40,0.85)] p-10 rounded-3xl shadow-lg border border-white/10">
         <h2 className="text-3xl font-bold text-center mb-8 gradient-text">
-          Create Your Account
+          Edit Profile
         </h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex flex-col">
             <label className="mb-2 text-gray-300">Full Name</label>
@@ -80,16 +86,13 @@ export default function Signup() {
             type="submit"
             className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 font-semibold text-white hover:scale-[1.02] transition-transform"
           >
-            Sign Up
+            Update Profile
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-400 mt-6">
-          Already have an account?{" "}
-          <Link to="/login" className="text-pink-400 hover:text-indigo-400">
-            Log In
-          </Link>
-        </p>
+        {successMessage && (
+          <p className="text-center text-green-400 mt-4">{successMessage}</p>
+        )}
       </div>
     </div>
   );
