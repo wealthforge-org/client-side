@@ -6,7 +6,9 @@ import PrimaryButton from "../../Ui/Buttons/PrimaryButton"
 import SecondaryButton from "../../Ui/Buttons/SecondaryButton"
 
 const Navbar = ({ page }) => {
-  const isSignedIn = localStorage.getItem('isSignedIn') === 'true';
+  // const isSignedIn = localStorage.getItem('isSignedIn') === 'true';
+  const isSignedIn = true;
+
 
   return (
     <nav className='border-b border-gray-800 py-4 px-6'>
