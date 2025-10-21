@@ -31,6 +31,11 @@ export const routes = [
     },
     {
         path: "/profile",
-        element: <Profile/>
+       
+        element: 
+          <LandingWrapper>
+            <Profile/>
+          </LandingWrapper>
+
     }
 ]
