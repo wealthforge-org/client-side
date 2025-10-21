@@ -1,6 +1,8 @@
 import Landing from "../Pages/Landing/Landing";
 
 import LandingWrapper from "../Wrappers/LandingWrapper";
+import CryptoList from "../Pages/CrypoList/CryptoList";
+import CryptoDetail from "../Pages/CryptoDetail/CryptoDetail";
 
 import Login from "../Pages/Auth/Login/Login";
 import SignUp from "../Pages/Auth/Sign-Up/SignUp";
@@ -27,5 +29,19 @@ export const routes = [
     {
         path: "/*",
         element: <NotFound/>
+    },
+    {
+        path: "/market",
+        element: 
+        <LandingWrapper>
+            <CryptoList/>
+        </LandingWrapper>
+    },
+    {
+        path: "/crypto/:id",
+        element: 
+        <LandingWrapper>
+            <CryptoDetail/>
+        </LandingWrapper>
     }
 ]
