@@ -6,6 +6,7 @@ import CryptoDetail from "../Pages/CryptoDetail/CryptoDetail";
 
 import Login from "../Pages/Auth/Login/Login";
 import SignUp from "../Pages/Auth/Sign-Up/SignUp";
+import Profile from "../Pages/Auth/Profile/Profile";
 
 import NotFound from "../Pages/NotFound";
 
@@ -43,5 +44,13 @@ export const routes = [
         <LandingWrapper>
             <CryptoDetail/>
         </LandingWrapper>
+    },
+    {
+        path: "/profile",
+        element: 
+          <LandingWrapper>
+            <Profile/>
+          </LandingWrapper>
+
     }
 ]
