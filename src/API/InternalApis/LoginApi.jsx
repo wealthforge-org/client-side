@@ -3,7 +3,7 @@ export const loginUser = async (email, password) => {
     const response = await fetch("http://localhost:8000/index.php?route=/Login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // 👈 VERY IMPORTANT
+        "Content-Type": "application/json", 
       },
       body: JSON.stringify({ email, password }),
     });
@@ -19,3 +19,4 @@ export const loginUser = async (email, password) => {
     throw new Error(err.message || "Failed to login.");
   }
 };
+
