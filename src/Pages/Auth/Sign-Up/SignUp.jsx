@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { handleSignup } from "../../../API/InternalApis/handleSignupApi";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [errors, setErrors] = useState({});
 
@@ -19,13 +22,25 @@ export default function Signup() {
     return errs;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
+
     if (Object.keys(errs).length === 0) {
-      alert("Account created successfully!");
-      setForm({ name: "", email: "", password: "" });
+      try {
+        const success = await handleSignup(form.name, form.email, form.password);
+        if (success) {
+          toast.success("Account created successfully!");
+          setForm({ name: "", email: "", password: "" });
+          localStorage.setItem('isSignedIn', 'true')
+          navigate("/market");
+        } else {
+          toast.error("Failed to create account. Please try again.");
+        }
+      } catch (error) {
+        toast.error(error.message || "Something went wrong!");
+      }
     }
   };
 
@@ -37,7 +52,6 @@ export default function Signup() {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           <div className="flex flex-col">
             <label className="mb-2 text-gray-300">Full Name</label>
             <input
@@ -53,7 +67,6 @@ export default function Signup() {
             )}
           </div>
 
-   
           <div className="flex flex-col">
             <label className="mb-2 text-gray-300">Email Address</label>
             <input
@@ -92,7 +105,6 @@ export default function Signup() {
           </button>
         </form>
 
-   
         <p className="text-center text-sm text-gray-400 mt-6">
           Already have an account?{" "}
           <Link to="/login" className="text-pink-400 hover:text-indigo-400">
