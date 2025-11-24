@@ -36,6 +36,7 @@ export default function Login() {
         localStorage.setItem("user", data.userId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("isSignedIn", true);
+        cookieStore.set("isSignedIn", true);
 
 
         navigate("/market");
