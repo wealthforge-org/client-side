@@ -35,6 +35,7 @@ export default function Login() {
         setForm({ email: "", password: "" });
         localStorage.setItem("user", data.userId);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("isSignedIn", true);
 
 
         navigate("/market");
