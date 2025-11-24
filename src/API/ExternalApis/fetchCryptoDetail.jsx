@@ -9,7 +9,7 @@ export const fetchCryptoDetail = async (id) => {
     }
 
     const data = await response.json();
-    return data[0]; // ✅ Return the crypto object (not set state here)
+    return data[0];
   } catch (err) {
     throw new Error(err.message || 'Error fetching crypto details');
   }

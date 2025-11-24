@@ -3,6 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import CryptoPulseLoader from '../../Components/Loaders/CryptoPulseLoader';
 import ErrorMessage from '../../Components/Ui/Error/ErrorMessage';
 import { fetchCryptoDetail } from '../../API/ExternalApis/fetchCryptoDetail';
+import { formatPrice } from '../../Services/formatPriceService';
+import { formatMarketCap } from '../../Services/FormatMarketCapService';
+import { formatPercentage } from '../../Services/formatPercentageService';
+import { toast } from 'react-toastify';
+import { handleSell, handleBuy } from '../../Services/handleTransactionsService';
 
 const CryptoDetail = () => {
   const { id } = useParams();
@@ -17,7 +22,7 @@ const CryptoDetail = () => {
     holdings: {} // Will store crypto holdings
   });
 
-  // Mock user portfolio - in real app, this would come from backend
+  // TODO: portfolio should be fetched from backend or local storage
   const [portfolio, setPortfolio] = useState({
     totalValue: 10000.00,
     holdings: {}
@@ -45,100 +50,6 @@ const CryptoDetail = () => {
 
   const currentHolding = portfolio.holdings[crypto?.symbol?.toUpperCase()] || 0;
   const currentValue = currentHolding * (crypto?.current_price || 0);
-
-  const formatPrice = (price) => {
-    if (price < 1) return '$' + price.toFixed(6);
-    return '$' + price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  };
-
-  const formatNumber = (num) => {
-    if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
-    if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
-    if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
-    return num.toLocaleString();
-  };
-
-  const formatPercentage = (percentage) => {
-    return `${percentage >= 0 ? '+' : ''}${percentage.toFixed(2)}%`;
-  };
-
-  // Handle buy transaction
-  const handleBuy = () => {
-    if (!amount || amount <= 0) {
-      alert('Please enter a valid amount');
-      return;
-    }
-
-    const totalCost = parseFloat(amount) * crypto.current_price;
-    
-    if (totalCost > wallet.USDT) {
-      alert('Insufficient USDT balance');
-      return;
-    }
-
-    // Update wallet and portfolio
-    const updatedWallet = {
-      ...wallet,
-      USDT: wallet.USDT - totalCost
-    };
-
-    const updatedHoldings = {
-      ...portfolio.holdings,
-      [crypto.symbol.toUpperCase()]: (portfolio.holdings[crypto.symbol.toUpperCase()] || 0) + parseFloat(amount)
-    };
-
-    const updatedPortfolio = {
-      ...portfolio,
-      holdings: updatedHoldings,
-      totalValue: portfolio.totalValue // Would recalculate based on current prices
-    };
-
-    setWallet(updatedWallet);
-    setPortfolio(updatedPortfolio);
-    setAmount('');
-    setUsdtAmount('');
-
-    alert(`Successfully bought ${amount} ${crypto.symbol.toUpperCase()} for $${totalCost.toFixed(2)}`);
-  };
-
-  // Handle sell transaction
-  const handleSell = () => {
-    if (!amount || amount <= 0) {
-      alert('Please enter a valid amount');
-      return;
-    }
-
-    if (amount > currentHolding) {
-      alert('Insufficient crypto balance');
-      return;
-    }
-
-    const totalValue = parseFloat(amount) * crypto.current_price;
-
-    // Update wallet and portfolio
-    const updatedWallet = {
-      ...wallet,
-      USDT: wallet.USDT + totalValue
-    };
-
-    const updatedHoldings = {
-      ...portfolio.holdings,
-      [crypto.symbol.toUpperCase()]: currentHolding - parseFloat(amount)
-    };
-
-    const updatedPortfolio = {
-      ...portfolio,
-      holdings: updatedHoldings,
-      totalValue: portfolio.totalValue // Would recalculate based on current prices
-    };
-
-    setWallet(updatedWallet);
-    setPortfolio(updatedPortfolio);
-    setAmount('');
-    setUsdtAmount('');
-
-    alert(`Successfully sold ${amount} ${crypto.symbol.toUpperCase()} for $${totalValue.toFixed(2)}`);
-  };
 
   // Sync USDT amount when crypto amount changes
   const handleAmountChange = (value) => {
@@ -392,7 +303,7 @@ const CryptoDetail = () => {
                   Market Cap
                 </h3>
                 <div className="text-2xl font-bold text-white mb-2">
-                  ${formatNumber(crypto.market_cap)}
+                  ${formatMarketCap(crypto.market_cap)}
                 </div>
                 <div className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold border ${
                   crypto.market_cap_change_percentage_24h >= 0 
@@ -409,7 +320,7 @@ const CryptoDetail = () => {
                   24h Trading Volume
                 </h3>
                 <div className="text-2xl font-bold text-white">
-                  ${formatNumber(crypto.total_volume)}
+                  ${formatMarketCap(crypto.total_volume)}
                 </div>
               </div>
 
@@ -452,7 +363,7 @@ const CryptoDetail = () => {
                   Circulating Supply
                 </h3>
                 <div className="text-xl font-bold text-white">
-                  {formatNumber(crypto.circulating_supply)} {crypto.symbol.toUpperCase()}
+                  {formatMarketCap(crypto.circulating_supply)} {crypto.symbol.toUpperCase()}
                 </div>
               </div>
             </div>

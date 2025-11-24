@@ -1,9 +1,12 @@
 import axios from 'axios';
 
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export const handleSignup = async (name, email, password) => {
   try {
     const response = await axios.post(
-      'http://localhost/wealthforge/server-side/index.php?route=/Register',
+      `${backendUrl}?route=/Register`,
       { name, email, password }
     );
 

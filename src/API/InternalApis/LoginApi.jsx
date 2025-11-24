@@ -1,6 +1,10 @@
+import axios from "axios";
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export const loginUser = async (email, password) => {
   try {
-    const response = await fetch("http://localhost:8000/index.php?route=/Login", {
+    const response = await fetch(`${backendUrl}?route=/Login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json", 

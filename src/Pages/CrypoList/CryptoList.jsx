@@ -5,6 +5,9 @@ import CryptoPulseLoader from '../../Components/Loaders/CryptoPulseLoader';
 import PrimaryHeader from '../../Components/Ui/Headers/PrimaryHeader';
 import PrimaryText from '../../Components/Ui/Texts/PrimaryText';
 import Searchbar from '../../Components/Ui/Searchbar/Searchbar';
+import { fetchCryptoList } from '../../API/ExternalApis/fetchCryptoList';
+import { formatPrice } from '../../Services/formatPriceService';
+import { formatMarketCap } from '../../Services/FormatMarketCapService';
 
 const CryptoList = () => {
   const [cryptos, setCryptos] = useState([]);
@@ -12,21 +15,14 @@ const CryptoList = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
+
   const fetchCryptoData = async () => {
     try {
-      const response = await fetch(
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-      );
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-      
-      const data = await response.json();
+      const data = await fetchCryptoList();  
       setCryptos(data);
-      setLoading(false);
     } catch (err) {
       setError(err.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -44,17 +40,7 @@ const CryptoList = () => {
     crypto.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const formatPrice = (price) => {
-    if (price < 1) return '$' + price.toFixed(4);
-    return '$' + price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  };
 
-  const formatMarketCap = (marketCap) => {
-    if (marketCap >= 1e12) return '$' + (marketCap / 1e12).toFixed(2) + 'T';
-    if (marketCap >= 1e9) return '$' + (marketCap / 1e9).toFixed(2) + 'B';
-    if (marketCap >= 1e6) return '$' + (marketCap / 1e6).toFixed(2) + 'M';
-    return '$' + marketCap.toLocaleString();
-  };
 
   if (loading) {
     return (

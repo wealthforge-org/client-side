@@ -1,7 +1,7 @@
 const NavLinks = [
   { to: '/portfolio', label: 'Portfolio' },
   { to: '/market', label: 'Market' },
-  { to: '/ai-assistent', label: 'Ai Assistent' },
+  { to: '/ai-assistant', label: 'Ai Assistant' },
 ]
 
 export default NavLinks

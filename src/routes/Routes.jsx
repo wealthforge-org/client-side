@@ -3,6 +3,7 @@ import Landing from "../Pages/Landing/Landing";
 import LandingWrapper from "../Wrappers/LandingWrapper";
 import CryptoList from "../Pages/CrypoList/CryptoList";
 import CryptoDetail from "../Pages/CryptoDetail/CryptoDetail";
+import AiAssistant from "../Pages/AiAssistant/AiAssistant";
 
 import Login from "../Pages/Auth/Login/Login";
 import SignUp from "../Pages/Auth/Sign-Up/SignUp";
@@ -52,5 +53,12 @@ export const routes = [
             <Profile/>
           </LandingWrapper>
 
+    },
+    {
+        path: "/ai-assistant",
+        element: 
+          <LandingWrapper>
+            <AiAssistant/>
+          </LandingWrapper>
     }
 ]
