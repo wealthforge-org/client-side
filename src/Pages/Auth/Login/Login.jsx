@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../API/InternalApis/LoginApi.jsx";
 
 export default function Login() {
@@ -7,11 +7,11 @@ export default function Login() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  }; 
+  };
   const validate = () => {
     const errs = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
@@ -35,6 +35,8 @@ export default function Login() {
         setForm({ email: "", password: "" });
         localStorage.setItem("user", data.userId);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("isSignedIn", true);
+        cookieStore.set("isSignedIn", true);
 
 
         navigate("/market");
@@ -86,11 +88,10 @@ export default function Login() {
 
           {apiMessage && (
             <p
-              className={`text-center ${
-                apiMessage.includes("successful")
+              className={`text-center ${apiMessage.includes("successful")
                   ? "text-green-400"
                   : "text-red-400"
-              }`}
+                }`}
             >
               {apiMessage}
             </p>
