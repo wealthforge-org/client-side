@@ -1,7 +1,4 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from '../Components/layout/Navbar/Navbar'
-import Footer from '../Components/layout/Footer'
-
 import { routes } from '../routes/Routes'
 
 const AppWrapper = () => {
