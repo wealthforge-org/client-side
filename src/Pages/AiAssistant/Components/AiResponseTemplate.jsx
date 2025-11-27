@@ -4,6 +4,8 @@ const AiResponseTemplate = ({ aiResponse }) => {
 
   if (!aiResponse) return null;
 
+  console.log("AI Response:", aiResponse);
+
   return (
     <div className="bg-[#f8f9fa] rounded-xl p-6 mt-6 border-l-4 border-[#667eea]">
       <div className="flex justify-between items-center mb-5 pb-4 border-b border-gray-200">

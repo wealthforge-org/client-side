@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchCryptoList } from '../../API/ExternalApis/fetchCryptoList';
 import axios from 'axios';
 
-import fetchAiAnalysis  from '../../API/InternalApis/fetchAiAnalysis';
+import { handleAiResponse }  from '../../API/InternalApis/fetchAiAnalysis';
 
 import AiHeader from './Components/AiHeader';
 import CryptoSelect from './Components/CryptoSelect';
@@ -62,6 +62,8 @@ const AiAssistant = () => {
       };
 
       const data = await handleAiResponse(requestBody);
+
+      console.log("AI Service Response:", data);
 
       if (data.status === 200 && data.payload?.suggestion) {
         setAiResponse(data.payload.suggestion);
