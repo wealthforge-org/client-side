@@ -14,7 +14,6 @@ export const fetchAssets = async (user_id) => {
             }
         );
         response = result.data;
-        console.log(response)
         return response;
     } catch (error) {
         console.error('Error during signup:', error);
