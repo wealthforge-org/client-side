@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../API/InternalApis/LoginApi.jsx";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-  }; 
+  };
   const validate = () => {
     const errs = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
@@ -31,17 +32,31 @@ export default function Login() {
       setLoading(true);
       try {
         const data = await loginUser(form.email, form.password);
+
+        console.log(data.status)
+        if (data.status !== 200) {
+          toast.error(data.payload || "Login failed");
+          throw new Error(data.payload || "Login failed");
+        }
+
+        
         setApiMessage("Login successful!");
         setForm({ email: "", password: "" });
         localStorage.setItem("user", data.userId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("isSignedIn", true);
         cookieStore.set("isSignedIn", true);
+        localStorage.setItem("ID", data.payload.id);
+        localStorage.setItem("name", data.payload.name);
+        cookieStore.set("isSignedIn", true);
+        cookieStore.set("ID", data.payload.id);
+        cookieStore.set("name", data.payload.name);
 
+        toast.success("Login successful!");
+        navigate("/portfolio");
 
-        navigate("/market");
       } catch (err) {
-        setApiMessage(err.message);
+        setApiMessage( "An error occurred during login.");
       } finally {
         setLoading(false);
       }
@@ -88,11 +103,10 @@ export default function Login() {
 
           {apiMessage && (
             <p
-              className={`text-center ${
-                apiMessage.includes("successful")
+              className={`text-center ${apiMessage.includes("successful")
                   ? "text-green-400"
                   : "text-red-400"
-              }`}
+                }`}
             >
               {apiMessage}
             </p>

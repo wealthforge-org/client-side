@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CryptoPulseLoader = ({ size = 'medium', text = 'Loading cryptocurrency data...' }) => {
   const sizeClasses = {
     small: 'w-8 h-8',

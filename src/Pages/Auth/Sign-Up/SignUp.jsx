@@ -34,6 +34,8 @@ export default function Signup() {
           toast.success("Account created successfully!");
           setForm({ name: "", email: "", password: "" });
           localStorage.setItem('isSignedIn', 'true')
+          // localStorage.setItem('user_id', success.user_id) TODO: store user id
+          cookieStore.set("isSignedIn", true);
           navigate("/market");
         } else {
           toast.error("Failed to create account. Please try again.");

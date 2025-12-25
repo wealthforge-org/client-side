@@ -99,7 +99,7 @@ const CryptoList = () => {
                 {/* Price Section */}
                 <div className="flex justify-between items-center mb-4">
                   <div className="text-2xl font-bold text-white">
-                    {formatPrice(crypto.current_price)}
+                    {formatPrice(crypto.current_price === null ? 0 : crypto.current_price)}
                   </div>
                   <div className={`px-3 py-1 rounded-full text-sm font-semibold ${
                     crypto.price_change_percentage_24h >= 0 

@@ -6,16 +6,20 @@ export default function useAuthRedirect() {
   const location = useLocation();
 
   useEffect(() => {
-    // const isSignedIn = localStorage.getItem("isSignedIn"); // Uncomment this line to use actual sign-in status
-    const isSignedIn = true; // Temporary hardcoded value for testing
+    // Get cookie
+    const cookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("isSignedIn="));
 
+    const isSignedIn = cookie?.split("=")[1] === "true";
 
-    const publicRoutes = ["/login", "/signup", "/"];
-    
+    // Public pages WITHOUT requiring login
+    const publicRoutes = ["/", "/login", "/sign-up"];
 
-    if ((isSignedIn === false || !isSignedIn) && !publicRoutes.includes(location.pathname)) {
-      console.log("User Not Signed in")
-      navigate("/"); 
+    // Prevent redirect loop
+    if (!isSignedIn && !publicRoutes.includes(location.pathname)) {
+      console.log("Redirecting: user not signed in");
+      navigate("/login");
     }
   }, [location.pathname, navigate]);
 }
