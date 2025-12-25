@@ -42,11 +42,15 @@ export default function Login() {
         
         setApiMessage("Login successful!");
         setForm({ email: "", password: "" });
+        localStorage.setItem("user", data.userId);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("isSignedIn", true);
+        cookieStore.set("isSignedIn", true);
         localStorage.setItem("ID", data.payload.id);
         localStorage.setItem("name", data.payload.name);
-        // cookieStore.set("isSignedIn", true);
-        // cookieStore.set("ID", data.payload.id);
-        // cookieStore.set("name", data.payload.name);
+        cookieStore.set("isSignedIn", true);
+        cookieStore.set("ID", data.payload.id);
+        cookieStore.set("name", data.payload.name);
 
         toast.success("Login successful!");
         navigate("/portfolio");
